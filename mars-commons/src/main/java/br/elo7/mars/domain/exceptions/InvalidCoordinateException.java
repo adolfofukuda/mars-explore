@@ -2,6 +2,11 @@ package br.elo7.mars.domain.exceptions;
 
 public class InvalidCoordinateException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2433744409111928906L;
+
 	public InvalidCoordinateException() {
 		super();
 		// TODO Auto-generated constructor stub

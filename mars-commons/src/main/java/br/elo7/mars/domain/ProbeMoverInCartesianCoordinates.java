@@ -24,7 +24,7 @@ public class ProbeMoverInCartesianCoordinates implements ProbeMover<Coordinate<I
 		}
 	};
 
-	private CartesianCoordinate initialPosition;
+	private CartesianCoordinate currentPosition;
 	private CartesianCoordinate limit;
 
 	private Heading heading;
@@ -34,16 +34,16 @@ public class ProbeMoverInCartesianCoordinates implements ProbeMover<Coordinate<I
 		{
 			put(MovementEnum.LEFT, () -> heading = new Heading(heading.previous()));
 			put(MovementEnum.RIGHT, () -> heading = new Heading(heading.next()));
-			put(MovementEnum.MOVE, () -> initialPosition = (CartesianCoordinate) initialPosition
+			put(MovementEnum.MOVE, () -> currentPosition = (CartesianCoordinate) currentPosition
 					.add(headingsMap.get(heading.currentWindRose())));
 
 		}
 	};
 
-	public ProbeMoverInCartesianCoordinates(CartesianCoordinate limit, CartesianCoordinate initialPosition, Heading heading) {
+	public ProbeMoverInCartesianCoordinates(CartesianCoordinate limit, CartesianCoordinate currentPosition, Heading heading) {
 		this.limit = limit;
 		this.heading = heading;
-		this.initialPosition = initialPosition;
+		this.currentPosition = currentPosition;
 	}
 
 	@Override
@@ -52,10 +52,10 @@ public class ProbeMoverInCartesianCoordinates implements ProbeMover<Coordinate<I
 		List<Pair<Coordinate<Integer>, Heading>> result = new ArrayList<Pair<Coordinate<Integer>, Heading>>();
 		for (String m : movementList) {
 			movesMap.get(MovementEnum.getBySymbol(m)).run();
-			if (initialPosition.getX() > limit.getX() || initialPosition.getY() > limit.getY()) {
+			if (currentPosition.getX() > limit.getX() || currentPosition.getY() > limit.getY()) {
 				throw new InvalidCoordinateException();
 			}
-			result.add(new Pair<Coordinate<Integer>, Heading>(initialPosition, heading));
+			result.add(new Pair<Coordinate<Integer>, Heading>(currentPosition, heading));
 		}
 		return result;
 	}
