@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.elo7.mars.domain.exceptions.InvalidCoordinateException;
 import br.elo7.probesapi.applicataion.entities.ProbesSetup;
+import br.elo7.probesapi.application.exceptions.InvalidConfigurationProbesException;
 import br.elo7.probesapi.application.interfaces.ProbesService;
 
 @RestController
@@ -18,7 +18,7 @@ public class MarsExplorationController {
 	private ProbesService probesService;
 	
 	@PostMapping
-	public void setup(@RequestBody ProbesSetup probes) throws InvalidCoordinateException {
+	public void setup(@RequestBody ProbesSetup probes) throws InvalidConfigurationProbesException {
 		probesService.setup(probes);
 	}
 }
