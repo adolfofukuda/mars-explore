@@ -3,6 +3,9 @@ package br.elo7.mars.domain;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.elo7.mars.domain.interfaces.Coordinate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +18,7 @@ public class CartesianCoordinate implements Coordinate<Integer> {
 	private Integer y;
 	
 	@Override
+	@JsonBackReference
 	public Coordinate<Integer> getCurrent() {
 		return this;
 	}
@@ -26,6 +30,7 @@ public class CartesianCoordinate implements Coordinate<Integer> {
 	}
 
 	@Override
+	@JsonIgnore
 	public List<Integer> getCoordinateValues() {
 		return Arrays.asList(this.x, this.y);
 	}

@@ -13,6 +13,7 @@ import br.elo7.mars.domain.interfaces.ProbeMover;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
@@ -24,21 +25,21 @@ public class Probe {
 	@Getter
 	private Coordinate<Integer> limit;
 	@Getter
-	private Coordinate<Integer> initialPosition;
+	private Coordinate<Integer> currentPosition;
 	@Getter
 	private Heading heading;
-	@Getter
+	@Getter @Setter
 	private List<String> movements;
 
 	public Pair<Coordinate<Integer>, Heading> getLastKnownLocation() throws InvalidCoordinateException {
 		return movements == null || movements.isEmpty()
-				? new Pair<Coordinate<Integer>, Heading>(initialPosition, heading)
+				? new Pair<Coordinate<Integer>, Heading>(currentPosition, heading)
 				: getProbeMover().moveTo(movements).get(movements.size()-1);
 	}
 
 	private ProbeMover<Coordinate<Integer>, Heading> getProbeMover() {
 		return new ProbeMoverInCartesianCoordinates(
-				(CartesianCoordinate) limit, (CartesianCoordinate) initialPosition, heading);
+				(CartesianCoordinate) limit, (CartesianCoordinate) currentPosition, heading);
 	}
 
 }

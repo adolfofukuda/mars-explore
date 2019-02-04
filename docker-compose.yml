@@ -1,0 +1,18 @@
+version: '3'
+services:
+  redis:
+    image: redis:5.0.3
+    ports:
+    - "6379:6379"
+
+  mars-explorer:
+    container_name: probes-api
+    image: openjdk:8-jdk-alpine
+    volumes:
+    - ./probes-api/target/probes-api-0.0.1.jar:/opt/probes-api-0.0.1.jar
+    ports: 
+    - "8080:8080"
+    links:
+    - redis
+    command: java -jar /opt/probes-api-0.0.1.jar
+
