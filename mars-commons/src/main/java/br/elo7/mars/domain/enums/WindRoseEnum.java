@@ -17,4 +17,8 @@ public enum WindRoseEnum {
 		}
 		return null;
 	}
+	
+	public String getSymbol() {
+		return direction;
+	}
 }

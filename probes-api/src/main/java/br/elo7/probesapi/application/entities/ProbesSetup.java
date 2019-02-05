@@ -1,4 +1,4 @@
-package br.elo7.probesapi.applicataion.entities;
+package br.elo7.probesapi.application.entities;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +32,7 @@ public class ProbesSetup {
 			probe.getCurrentPosition() == null ||
 			probe.getCurrentPosition().getX() == null || probe.getCurrentPosition().getY() == null ||
 			limit.getX() == null || limit.getY() == null ||
+			limit.getX() < 1 || limit.getY() < 1 ||
 			probe.getCurrentPosition().getX() > limit.getX() || probe.getCurrentPosition().getY() > limit.getY())
 			throw new InvalidCoordinateException();
 		}

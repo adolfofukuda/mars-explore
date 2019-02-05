@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.elo7.mars.domain.exceptions.InvalidCoordinateException;
-import br.elo7.probesapi.applicataion.entities.ProbeApp;
-import br.elo7.probesapi.applicataion.entities.ProbesSetup;
+import br.elo7.probesapi.application.entities.ProbeApp;
+import br.elo7.probesapi.application.entities.ProbesSetup;
 import br.elo7.probesapi.application.exceptions.InvalidConfigurationProbesException;
 import br.elo7.probesapi.application.exceptions.InvalidMovementsException;
 import br.elo7.probesapi.application.exceptions.ProbeNotFoundException;
@@ -37,5 +37,10 @@ public class MarsExplorationController {
 	@PutMapping("/probe/{probeId}/movements/{moves}")
 	public ProbeApp newMovements(@PathVariable String probeId, @PathVariable String moves) throws ProbeNotFoundException, InvalidMovementsException {
 		return probesService.newMovements(probeId, moves);
+	}
+	
+	@GetMapping("/probe/{probeId}/move") 
+	public ProbeApp move(@PathVariable String probeId) throws InvalidCoordinateException, ProbeNotFoundException {
+		return probesService.move(probeId);
 	}
 }

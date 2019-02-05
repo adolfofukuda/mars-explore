@@ -1,5 +1,6 @@
 package br.elo7.mars.domain.entities;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.javatuples.Pair;
@@ -31,10 +32,10 @@ public class Probe {
 	@Getter @Setter
 	private List<String> movements;
 
-	public Pair<Coordinate<Integer>, Heading> getLastKnownLocation() throws InvalidCoordinateException {
+	public List<Pair<Coordinate<Integer>, Heading>> getLocations() throws InvalidCoordinateException {
 		return movements == null || movements.isEmpty()
-				? new Pair<Coordinate<Integer>, Heading>(currentPosition, heading)
-				: getProbeMover().moveTo(movements).get(movements.size()-1);
+				? Arrays.asList(new Pair<Coordinate<Integer>, Heading>(currentPosition, heading))
+				: getProbeMover().moveTo(movements);
 	}
 
 	private ProbeMover<Coordinate<Integer>, Heading> getProbeMover() {

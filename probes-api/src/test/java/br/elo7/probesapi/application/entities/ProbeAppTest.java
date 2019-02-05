@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import br.elo7.mars.domain.CartesianCoordinate;
-import br.elo7.probesapi.applicataion.entities.ProbeApp;
+import br.elo7.probesapi.application.entities.ProbeApp;
 import br.elo7.probesapi.application.exceptions.InvalidMovementsException;
 
 public class ProbeAppTest {

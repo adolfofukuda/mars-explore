@@ -1,4 +1,4 @@
-package br.elo7.probesapi.applicataion.entities;
+package br.elo7.probesapi.application.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
