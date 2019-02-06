@@ -1,7 +1,9 @@
 package br.elo7.probesapi.application.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,20 +54,23 @@ public class ProbesServiceImpl implements ProbesService {
 	public ProbeApp move(String probeId) throws InvalidCoordinateException, ProbeNotFoundException {
 		ProbeApp probe = getInfo(probeId);
 		CartesianCoordinate limit = planRepository.findById(PLAN_NAME).get().getLimits();
-		
+
 		// translate to domain objects
-		Probe probeDomain = new Probe(probe.getId(), limit, probe.getCurrentPosition(), new Heading(WindRoseEnum.getBySymbol(probe.getHeading())), probe.getMovementsAsList());
-		
+		Probe probeDomain = new Probe(probe.getId(), limit, probe.getCurrentPosition(),
+				new Heading(WindRoseEnum.getBySymbol(probe.getHeading())), probe.getMovementsAsList());
+
 		// listing all locations visited by probeId
 		List<Pair<Coordinate<Integer>, Heading>> locations = probeDomain.getLocations();
-	
+
 		// retrieve all probes except the probeId itself
-		List<ProbeApp> probes = (List<ProbeApp>) probeRepository.findAll();
-		probes.remove(probe);
-		
+		List<ProbeApp> probes = ((List<ProbeApp>) probeRepository.findAll()).stream().filter(p -> !p.equals(probe))
+				.collect(Collectors.toList());
+
 		// another probe at same location?
 		for (ProbeApp another : probes) {
-			if (locations.parallelStream().filter(p ->  ((CartesianCoordinate) p.getValue0()).equals(another.getCurrentPosition())).count() > 0) {
+			if (locations.parallelStream()
+					.filter(p -> ((CartesianCoordinate) p.getValue0()).equals(another.getCurrentPosition()))
+					.count() > 0) {
 				throw new InvalidCoordinateException("Probe cannot complain because there another probe");
 			}
 		}
@@ -80,7 +85,8 @@ public class ProbesServiceImpl implements ProbesService {
 	}
 
 	@Override
-	public ProbeApp newMovements(String probeId, String movements) throws ProbeNotFoundException, InvalidMovementsException{
+	public ProbeApp newMovements(String probeId, String movements)
+			throws ProbeNotFoundException, InvalidMovementsException {
 		ProbeApp probe = getInfo(probeId);
 		probe.setMovements(movements);
 		probe.validateMovements();
