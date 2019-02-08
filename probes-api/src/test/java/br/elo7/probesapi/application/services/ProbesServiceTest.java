@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.OngoingStubbing;
 
 import br.elo7.mars.domain.CartesianCoordinate;
 import br.elo7.mars.domain.exceptions.InvalidCoordinateException;

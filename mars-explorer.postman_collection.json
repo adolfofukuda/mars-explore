@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "28d2a97e-d392-404e-a670-52724850723b",
+		"_postman_id": "b04c7084-84cb-46b8-84c2-a7a74068cd60",
 		"name": "mars-explorer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -62,21 +62,24 @@
 		{
 			"name": "localhost:8080/mars-explore/teste",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/mars-explore/teste",
+					"raw": "localhost:8080/mars-explore/probe/curiosity/movements/LMLMM",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"mars-explore",
-						"teste"
+						"probe",
+						"curiosity",
+						"movements",
+						"LMLMM"
 					]
 				}
 			},
