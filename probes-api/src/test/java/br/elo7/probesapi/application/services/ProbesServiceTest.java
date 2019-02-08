@@ -141,13 +141,13 @@ public class ProbesServiceTest {
 	}
 
 	@Test(expected = InvalidCoordinateException.class)
-	public void invalid_limits() throws InvalidConfigurationProbesException, InvalidCoordinateException {
+	public void invalid_limits() throws InvalidConfigurationProbesException, InvalidCoordinateException, InvalidMovementsException {
 		probeSetup = getSetup(CENARIO2);
 		probeService.setup(probeSetup);
 	}
 
 	@Test(expected = InvalidConfigurationProbesException.class)
-	public void invalid_probes_configuration() throws InvalidConfigurationProbesException, InvalidCoordinateException {
+	public void invalid_probes_configuration() throws InvalidConfigurationProbesException, InvalidCoordinateException, InvalidMovementsException {
 		probeSetup = getSetup(CENARIO1);
 		probeService.setup(probeSetup);
 	}
