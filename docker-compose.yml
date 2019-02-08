@@ -8,10 +8,13 @@ services:
   mars-explorer:
     container_name: probes-api
     image: openjdk:8-jdk-alpine
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=8002,server=y,suspend=n
     volumes:
     - ./probes-api/target/probes-api-0.0.1.jar:/opt/probes-api-0.0.1.jar
     ports: 
     - "8080:8080"
+    - "8002:8002"
     links:
     - redis
     command: java -jar /opt/probes-api-0.0.1.jar

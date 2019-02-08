@@ -1,6 +1,5 @@
 package br.elo7.probesapi.application.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -39,7 +38,8 @@ public class ProbesServiceImpl implements ProbesService {
 	private static String PLAN_NAME = "elo7Mars";
 
 	@Override
-	public void setup(ProbesSetup probesSetup) throws InvalidConfigurationProbesException, InvalidCoordinateException {
+	public void setup(ProbesSetup probesSetup)
+			throws InvalidConfigurationProbesException, InvalidCoordinateException, InvalidMovementsException {
 		log.info("Initializing plan to explore with configuration: {}", probesSetup);
 		probeRepository.deleteAll();
 		planRepository.deleteAll();
@@ -47,6 +47,9 @@ public class ProbesServiceImpl implements ProbesService {
 
 		probesSetup.validateConfigurationProbes();
 		probesSetup.validateLimits();
+		for (ProbeApp p: probesSetup.getProbes()) {
+			p.validateMovements();
+		}
 		probesSetup.getProbes().forEach(p -> probeRepository.save(p));
 	}
 
