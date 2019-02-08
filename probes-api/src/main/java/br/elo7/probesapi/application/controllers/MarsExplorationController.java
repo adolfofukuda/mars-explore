@@ -25,7 +25,7 @@ public class MarsExplorationController {
 	private ProbesService probesService;
 	
 	@PostMapping("/setup")
-	public void setup(@RequestBody ProbesSetup probes) throws InvalidConfigurationProbesException, InvalidCoordinateException {
+	public void setup(@RequestBody ProbesSetup probes) throws InvalidConfigurationProbesException, InvalidCoordinateException, InvalidMovementsException {
 		probesService.setup(probes);
 	}
 	
